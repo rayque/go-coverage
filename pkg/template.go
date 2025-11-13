@@ -1,4 +1,5 @@
 package coverage
+
 const htmlTemplateContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +127,7 @@ const htmlTemplateContent = `<!DOCTYPE html>
                     </table>
                 </div>
                 {{else}}
-                <div class="no-source">Source file not found in current directory</div>
+                <div class="no-source">⚠️ Source file not found<br><small style="font-size: 12px; opacity: 0.8;">Run go-coverage from your project root directory</small></div>
                 {{end}}
             </div>
             {{end}}

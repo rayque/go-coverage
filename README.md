@@ -372,6 +372,50 @@ mode: atomic
 path/to/file.go:startLine.startCol,endLine.endCol numStmt count
 ```
 
+## Troubleshooting
+
+### "Source file not found in current directory"
+
+**Good News:** As of v0.1.3+, the tool automatically handles Go module paths! It will try multiple path variations to find your source files.
+
+If you still see this warning in the HTML report, it means the tool cannot locate your source code files after trying:
+- The exact path from the coverage file
+- The filename only (stripping module paths)
+- Progressive path components
+
+**Most Common Solutions:**
+
+1. **Run the tool from your project's root directory** (where your `.go` files are)
+   ```bash
+   cd /path/to/your/project
+   go-coverage
+   ```
+
+2. **Verify your setup:**
+   ```bash
+   # Check coverage file paths
+   head coverage.out
+   # Should show paths like: example.com/myapp/file.go:10.1,15.2 1 1
+   
+   # Verify source files exist
+   ls -la *.go
+   ```
+
+3. **Complete workflow example:**
+   ```bash
+   cd /path/to/your/project
+   go test -coverprofile=coverage.out ./...
+   go-coverage
+   # The tool will automatically find files, even with module paths!
+   ```
+
+**How it works:**
+- Coverage file: `example.com/coveragetest/calculator.go`
+- Tool tries: `calculator.go`, `coveragetest/calculator.go`, etc.
+- Automatically finds the file in your current directory
+
+**Note:** The report will still show coverage statistics even if source files aren't found - only the line-by-line highlighting will be unavailable.
+
 ## License
 
 MIT License - See LICENSE file for details

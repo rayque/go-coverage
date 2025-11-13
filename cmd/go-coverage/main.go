@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 
 	coverage "github.com/rayque/go-coverage/pkg"
 )
@@ -44,6 +46,42 @@ func main() {
 		totalStmts, coveredStmts, overallPct := report.GetOverallStats()
 		fmt.Printf("📈 Overall coverage: %.1f%% (%d/%d statements)\n", overallPct, coveredStmts, totalStmts)
 		fmt.Printf("📁 Files analyzed: %d\n", len(report.Files))
+
+		// Check if source files exist using smart path resolution
+		missingFiles := 0
+		for filePath := range report.Files {
+			found := false
+			// Try the same alternatives as GetFileWithSource
+			alternatives := []string{filePath}
+
+			// Add just the filename
+			alternatives = append(alternatives, filepath.Base(filePath))
+
+			// Try parts after the module name
+			parts := strings.Split(filePath, "/")
+			if len(parts) > 1 {
+				for i := 1; i < len(parts); i++ {
+					alternatives = append(alternatives, filepath.Join(parts[i:]...))
+				}
+			}
+
+			// Check if any alternative exists
+			for _, alt := range alternatives {
+				if _, err := os.Stat(alt); err == nil {
+					found = true
+					break
+				}
+			}
+
+			if !found {
+				missingFiles++
+			}
+		}
+		if missingFiles > 0 {
+			fmt.Printf("⚠️  Warning: %d source files not found in current directory\n", missingFiles)
+			fmt.Printf("   Make sure you run this tool from your project root directory\n")
+		}
+
 		fmt.Printf("🔨 Generating HTML report: %s\n", *outputFile)
 	}
 	err = coverage.GenerateHTMLReport(report, *outputFile)
