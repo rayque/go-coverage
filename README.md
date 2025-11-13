@@ -17,13 +17,13 @@ A powerful Go library and CLI tool to generate beautiful, interactive HTML repor
 ### Install from GitHub
 
 ```bash
-go install github.com/rayque/go-coverage/cmd/go-coverage@v0.1.1
+go install github.com/rayque/go-coverage/cmd/go-coverage@latest
 ```
 
-Or use latest:
+Or specific version:
 
 ```bash
-go install github.com/rayque/go-coverage/cmd/go-coverage@latest
+go install github.com/rayque/go-coverage/cmd/go-coverage@v0.1.2
 ```
 
 ### Build from Source
