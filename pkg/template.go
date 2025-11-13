@@ -119,7 +119,7 @@ const htmlTemplateContent = `<!DOCTYPE html>
                 <div class="code-container">
                     <table class="code-table">
                         {{range .Lines}}
-                        <tr class="{{if .IsCovered}}line-covered{{else if eq .Count 0}}line-uncovered{{else}}line-neutral{{end}}">
+                        <tr class="{{if .IsCovered}}line-covered{{else if .HasCoverage}}line-uncovered{{else}}line-neutral{{end}}">
                             <td class="line-number">{{.LineNumber}}</td>
                             <td class="line-content">{{.Content}}</td>
                         </tr>

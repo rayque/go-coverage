@@ -10,10 +10,11 @@ import (
 )
 
 type LineCoverage struct {
-	LineNumber int
-	Content    string
-	Count      int
-	IsCovered  bool
+	LineNumber  int
+	Content     string
+	Count       int
+	IsCovered   bool
+	HasCoverage bool // true se a linha faz parte de um bloco de cobertura
 }
 type FileWithSource struct {
 	FileName string
@@ -79,6 +80,7 @@ func GetFileWithSource(filePath string, coverage *FileCoverage) (*FileWithSource
 			if i > 0 && i <= len(lines) {
 				lines[i-1].Count = block.Count
 				lines[i-1].IsCovered = block.Count > 0
+				lines[i-1].HasCoverage = true // Esta linha faz parte de um bloco de cobertura
 			}
 		}
 	}
