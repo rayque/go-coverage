@@ -14,7 +14,13 @@ A powerful Go library and CLI tool to generate beautiful, interactive HTML repor
 
 ## Installation
 
-### Install from GitHub (once published)
+### Install from GitHub
+
+```bash
+go install github.com/rayque/go-coverage/cmd/go-coverage@v0.1.1
+```
+
+Or use latest:
 
 ```bash
 go install github.com/rayque/go-coverage/cmd/go-coverage@latest

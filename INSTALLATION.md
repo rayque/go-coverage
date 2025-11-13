@@ -11,8 +11,8 @@ module github.com/rayque/go-coverage@latest found, but does not contain package 
 
 1. ✅ Fixed `go.mod` - Corrected Go version from 1.25.4 to 1.21
 2. ✅ Fixed import formatting in `main.go`
-3. ✅ Added missing `cmd/go-coverage/main.go` to Git
-4. ✅ Created new release tag `v0.1.0`
+./test-local.sh3. ✅ Fixed import formatting in main.go
+4. ✅ Created release tag v0.1.1
 5. ✅ Pushed everything to GitHub
 
 ## How to Install Now
@@ -20,7 +20,13 @@ module github.com/rayque/go-coverage@latest found, but does not contain package 
 ### Option 1: Install from GitHub (Recommended)
 
 ```bash
-go install github.com/rayque/go-coverage/cmd/go-coverage@v0.1.0
+go install github.com/rayque/go-coverage/cmd/go-coverage@v0.1.1
+```
+
+Or use latest:
+
+```bash
+go install github.com/rayque/go-coverage/cmd/go-coverage@latest
 ```
 
 ### Option 2: Build from Source
